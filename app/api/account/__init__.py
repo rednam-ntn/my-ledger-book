@@ -4,9 +4,7 @@ from typing import Optional
 from fastapi import APIRouter, File, HTTPException, UploadFile
 from pydantic import BaseModel
 
-from app.core import INPUT_PATH, settings
-
-router = APIRouter(prefix="/account", tags=["account"])
+router = APIRouter()
 
 
 @router.get("/{account_id}")

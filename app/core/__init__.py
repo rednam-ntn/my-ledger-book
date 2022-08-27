@@ -1,13 +1,14 @@
-from pathlib import Path
 from typing import List, Union
 
-from pydantic import AnyHttpUrl, BaseSettings, DirectoryPath, validator
+from pydantic import AnyHttpUrl, BaseSettings, validator  # DirectoryPath
 
 
 class Settings(BaseSettings):
-    DATA_DIR: DirectoryPath
+    # PORT: str
+    # DATA_DIR: DirectoryPath
 
-    PORT: str
+    SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+    # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
     # BACKEND_CORS_ORIGINS is a JSON-formatted list of origins
     # e.g: '["http://localhost", "http://localhost:4200"]'
@@ -28,12 +29,3 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-
-
-INPUT_PATH = Path(settings.DATA_DIR / "input")
-OUTPUT_PATH = Path(settings.DATA_DIR / "output")
-FACTORY_DATA_PATH = Path(settings.DATA_DIR / "factory_api")
-BULK_PATH = Path(settings.DATA_DIR / "bulk")
-
-for _path in (INPUT_PATH, OUTPUT_PATH, FACTORY_DATA_PATH, BULK_PATH):
-    _path.mkdir(parents=True, exist_ok=True)
