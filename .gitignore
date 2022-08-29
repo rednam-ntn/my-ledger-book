@@ -2,3 +2,5 @@ output/
 *.pyc
 .env
 .python-version
+
+database/

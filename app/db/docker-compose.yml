@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  postgres-db:
+    container_name: my-ledger-book-postgres-${ENV}
+    image: 'postgres:14.2'
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - ../../database/postgres/postgres-${ENV}:/var/lib/postgresql/data
+    healthcheck:
+      test: exit 0

@@ -1,9 +1,6 @@
 from typing import Generator
 
-from fastapi import Depends
-from sqlalchemy.orm import Session
-
-from app.db.session import SessionLocal
+from app.db import SessionLocal
 
 
 def get_db() -> Generator:

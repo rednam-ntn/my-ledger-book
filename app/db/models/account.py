@@ -1,14 +1,24 @@
-from sqlalchemy import Boolean, Column, Integer, String
+from datetime import datetime
+
+from sqlalchemy import Column, DateTime, Integer, String
 from sqlalchemy.orm import relationship
 
-from app.db.models import Base
+from app.db import Base
 
 
-class User(Base):
-    id = Column(Integer, primary_key=True, index=True)
-    full_name = Column(String, index=True)
-    email = Column(String, unique=True, index=True, nullable=False)
-    hashed_password = Column(String, nullable=False)
-    is_active = Column(Boolean(), default=True)
-    is_superuser = Column(Boolean(), default=False)
-    items = relationship("Item", back_populates="owner")
+class Account(Base):
+    __tablename__ = "account"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String, nullable=False)
+    description_vi = Column(String)
+    description_en = Column(String)
+    url = Column(String)
+
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    transactions_out = relationship("Transaction", back_populates="from_account")
+    transactions_in = relationship("Transaction", back_populates="to_account")
+
+    assets_balance = relationship("AssetBalance", back_populates="account")
