@@ -18,7 +18,9 @@ class Account(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    transactions_out = relationship("Transaction", back_populates="from_account")
-    transactions_in = relationship("Transaction", back_populates="to_account")
+    transactions_out = relationship(
+        "Transaction", back_populates="from_account", foreign_keys="Transaction.from_account_id"
+    )
+    transactions_in = relationship("Transaction", back_populates="to_account", foreign_keys="Transaction.to_account_id")
 
     assets_balance = relationship("AssetBalance", back_populates="account")

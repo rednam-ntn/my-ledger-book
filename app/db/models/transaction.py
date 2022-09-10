@@ -16,10 +16,10 @@ class Transaction(Base):
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     from_account_id = Column(Integer, ForeignKey("account.id"), nullable=True)
-    from_account = relationship("Account", back_populates="transactions_out")
+    from_account = relationship("Account", back_populates="transactions_out", foreign_keys=[from_account_id])
 
     to_account_id = Column(Integer, ForeignKey("account.id"), nullable=True)
-    to_account = relationship("Account", back_populates="transactions_in")
+    to_account = relationship("Account", back_populates="transactions_in", foreign_keys=[to_account_id])
 
     asset_id = Column(Integer, ForeignKey("asset.id"))
     asset = relationship("Asset", back_populates="transactions")

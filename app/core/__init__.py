@@ -1,14 +1,33 @@
-from typing import List, Union
+from typing import Any, Dict, List, Optional, Union
 
-from pydantic import AnyHttpUrl, BaseSettings, validator  # DirectoryPath
+from pydantic import AnyHttpUrl, BaseSettings, PostgresDsn, validator  # DirectoryPath
 
 
 class Settings(BaseSettings):
     # PORT: str
     # DATA_DIR: DirectoryPath
 
-    SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
-    # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
+    # SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_app.db"
+
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+    POSTGRES_HOST: str
+    POSTGRES_PORT: str
+    POSTGRES_DB: str
+    SQLALCHEMY_DATABASE_URL: Optional[PostgresDsn] = None
+
+    @validator("SQLALCHEMY_DATABASE_URL", pre=True)
+    def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+        if isinstance(v, str):
+            return v
+        return PostgresDsn.build(
+            scheme="postgresql",
+            user=values["POSTGRES_USER"],
+            password=values["POSTGRES_PASSWORD"],
+            host=values["POSTGRES_HOST"],
+            port=values["POSTGRES_PORT"],
+            path=f"/{values.get('POSTGRES_DB') or ''}",
+        )
 
     # BACKEND_CORS_ORIGINS is a JSON-formatted list of origins
     # e.g: '["http://localhost", "http://localhost:4200"]'

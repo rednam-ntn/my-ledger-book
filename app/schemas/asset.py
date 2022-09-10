@@ -24,9 +24,6 @@ class AssetBase(BaseModel):
     description_en: Optional[str] = None
     url: Optional[str] = None
 
-    created_at: Optional[datetime]
-    updated_at: Optional[datetime]
-
 
 class AssetCreate(AssetBase):
     name: str
