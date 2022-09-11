@@ -4,11 +4,11 @@
 # from sqlalchemy.orm import Session
 
 from app.db.crud_base import CRUD
-from app.db.models.asset import Asset
-from app.schemas.asset import AssetCreate, AssetUpdate
+from app.db.models.asset_price import AssetPrice
+from app.schemas.asset_price import AssetPriceCreate, AssetPriceUpdate
 
 
-class CRUDAsset(CRUD[Asset, AssetCreate, AssetUpdate]):
+class CRUDAssetPrice(CRUD[AssetPrice, AssetPriceCreate, AssetPriceUpdate]):
     ...
     # TODO
     # def create_with_owner(self, db: Session, *, obj_in: AssetCreate) -> Asset:
@@ -26,4 +26,4 @@ class CRUDAsset(CRUD[Asset, AssetCreate, AssetUpdate]):
     #     return db.query(self.model).filter(Asset.asset_supplier_id == asset_supplier_id).offset(skip).limit(limit).all()
 
 
-crud_asset = CRUDAsset(Asset)
+crud_asset_price = CRUDAssetPrice(AssetPrice)

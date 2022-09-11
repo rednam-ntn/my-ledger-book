@@ -1,8 +1,6 @@
-from pathlib import Path
-from typing import Any, List, Optional
+from typing import Any, List
 
-from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.api.asset.crud import crud_asset
@@ -20,11 +18,7 @@ def read_item(
     """
     Get asset by ID.
     """
-    asset = crud_asset.get(db=db, id=id)
-    if not asset:
-        raise HTTPException(status_code=404, detail="Asset not found")
-
-    return asset
+    return crud_asset.get(db=db, id=id)
 
 
 @router.get("/", response_model=List[Asset])
@@ -36,8 +30,7 @@ def read_items(
     """
     Retrieve assets.
     """
-    assets = crud_asset.get_multi(db, skip=skip, limit=limit)
-    return assets
+    return crud_asset.get_multi(db, skip=skip, limit=limit)
 
 
 @router.post("/", response_model=Asset)
@@ -48,8 +41,7 @@ def create_item(
     """
     Create new asset.
     """
-    asset = crud_asset.create(db=db, obj_in=asset_in)
-    return asset
+    return crud_asset.create(db=db, obj_in=asset_in)
 
 
 @router.put("/{id}", response_model=Asset)
@@ -62,8 +54,7 @@ def update_item(
     Update an asset.
     """
     asset = crud_asset.get(db=db, id=id)
-    asset = crud_asset.update(db=db, db_obj=asset, obj_in=asset_in)
-    return asset
+    return crud_asset.update(db=db, db_obj=asset, obj_in=asset_in)
 
 
 @router.delete("/{id}", response_model=Asset)
@@ -74,5 +65,4 @@ def delete_item(
     """
     Delete an asset.
     """
-    item = crud_asset.remove(db=db, id=id)
-    return item
+    return crud_asset.remove(db=db, id=id)

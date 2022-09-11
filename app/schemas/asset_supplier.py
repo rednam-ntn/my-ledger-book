@@ -11,9 +11,6 @@ class AssetSupplierBase(BaseModel):
     description: Optional[str] = None
     url: Optional[str] = None
 
-    created_at: Optional[datetime]
-    updated_at: Optional[datetime]
-
 
 class AssetSupplierCreate(AssetSupplierBase):
     name: str

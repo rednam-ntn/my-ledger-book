@@ -15,7 +15,7 @@ class AssetPriceCreate(AssetPriceBase):
     asset_id: int
 
 
-class AssetUpdate(AssetPriceBase):
+class AssetPriceUpdate(AssetPriceBase):
     pass
 
 

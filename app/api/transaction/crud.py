@@ -4,11 +4,11 @@
 # from sqlalchemy.orm import Session
 
 from app.db.crud_base import CRUD
-from app.db.models.asset import Asset
-from app.schemas.asset import AssetCreate, AssetUpdate
+from app.db.models.transaction import Transaction
+from app.schemas.transaction import TransactionCreate, TransactionUpdate
 
 
-class CRUDAsset(CRUD[Asset, AssetCreate, AssetUpdate]):
+class CRUDTransaction(CRUD[Transaction, TransactionCreate, TransactionUpdate]):
     ...
     # TODO
     # def create_with_owner(self, db: Session, *, obj_in: AssetCreate) -> Asset:
@@ -26,4 +26,4 @@ class CRUDAsset(CRUD[Asset, AssetCreate, AssetUpdate]):
     #     return db.query(self.model).filter(Asset.asset_supplier_id == asset_supplier_id).offset(skip).limit(limit).all()
 
 
-crud_asset = CRUDAsset(Asset)
+crud_transaction = CRUDTransaction(Transaction)

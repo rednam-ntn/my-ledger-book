@@ -1,13 +1,13 @@
-from typing import Any, Dict, Optional, Union
+# from typing import Any, Dict, Optional, Union
 
-from sqlalchemy.orm import Session
+# from sqlalchemy.orm import Session
 
-from app.db.crud.crud import CRUDBase
+from app.db.crud_base import CRUD
 from app.db.models.account import Account
-from app.schemas.account import UserCreate, UserUpdate
+from app.schemas.account import AccountCreate, AccountUpdate
 
 
-class CRUDUser(CRUDBase[Account, UserCreate, UserUpdate]):
+class CRUDAccount(CRUD[Account, AccountCreate, AccountUpdate]):
     ...
     # TODO
     # def get_by_email(self, db: Session, *, email: str) -> Optional[Account]:
@@ -33,4 +33,4 @@ class CRUDUser(CRUDBase[Account, UserCreate, UserUpdate]):
     #     return super().update(db, db_obj=db_obj, obj_in=update_data)
 
 
-user = CRUDUser(Account)
+crud_account = CRUDAccount(Account)
